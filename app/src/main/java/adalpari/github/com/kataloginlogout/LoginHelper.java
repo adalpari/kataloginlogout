@@ -7,7 +7,17 @@ public class LoginHelper {
 
     private final static String ADMIN = "admin";
 
-    public static boolean login(String userName, String password) {
+    private final Clock clock;
+
+    public LoginHelper(Clock clock) {
+        this.clock = clock;
+    }
+
+    public boolean login(String userName, String password) {
         return ADMIN.equals(userName) && ADMIN.equals(password);
+    }
+
+    public boolean canLogout() {
+        return clock.getSecondsNow() % 2 == 0;
     }
 }

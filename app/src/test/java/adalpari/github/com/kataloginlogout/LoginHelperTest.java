@@ -3,6 +3,7 @@ package adalpari.github.com.kataloginlogout;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -10,45 +11,86 @@ import org.junit.Test;
  */
 public class LoginHelperTest {
 
+    private LoginHelper loginHelper;
+    private MockClock mockClock;
+
+    @Before
+    public void setUp() throws Exception {
+        mockClock = new MockClock();
+        loginHelper = new LoginHelper(mockClock);
+    }
+
     @Test
     public void shouldReturnTrueIfAdminAdmin() {
-        boolean result = LoginHelper.login("admin", "admin");
+        boolean result = loginHelper.login("admin", "admin");
 
         assertTrue(result);
     }
 
     @Test
     public void shouldReturnFalseForBadUser() {
-        boolean result = LoginHelper.login("admi", "admin");
+        boolean result = loginHelper.login("admi", "admin");
 
         assertFalse(result);
     }
 
     @Test
     public void shouldReturnFalseForBadPassword() {
-        boolean result = LoginHelper.login("admin", "admi");
+        boolean result = loginHelper.login("admin", "admi");
 
         assertFalse(result);
     }
 
     @Test
     public void shouldReturnFalseForNullUser() {
-        boolean result = LoginHelper.login(null, "admin");
+        boolean result = loginHelper.login(null, "admin");
 
         assertFalse(result);
     }
 
     @Test
     public void shouldReturnFalseForNullPassword() {
-        boolean result = LoginHelper.login("admin", null);
+        boolean result = loginHelper.login("admin", null);
 
         assertFalse(result);
     }
 
     @Test
     public void shouldReturnFalseForBlankLogin() {
-        boolean result = LoginHelper.login("", "");
+        boolean result = loginHelper.login("", "");
 
         assertFalse(result);
+    }
+
+
+    @Test
+    public void testLogOutEven() {
+        mockClock.setSeconds(2);
+        boolean result = loginHelper.canLogout();
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void testLogOutUneven() {
+        mockClock.setSeconds(3);
+        boolean result = loginHelper.canLogout();
+
+        assertFalse(result);
+    }
+
+
+    class MockClock extends Clock {
+
+        private long seconds;
+
+        protected void setSeconds(long seconds) {
+            this.seconds = seconds;
+        }
+
+        @Override
+        public long getSecondsNow() {
+            return seconds;
+        }
     }
 }

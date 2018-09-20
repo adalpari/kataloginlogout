@@ -11,6 +11,10 @@ import org.junit.Test;
  */
 public class LoginHelperTest {
 
+    public static final String RIGHT_USER = "admin";
+    public static final String RIGHT_PASSWORD = "admin";
+    public static final String WRONG_USER = "admi";
+    public static final String WRONG_PSSWORD = "admi";
     private LoginHelper loginHelper;
     private MockClock mockClock;
 
@@ -22,35 +26,35 @@ public class LoginHelperTest {
 
     @Test
     public void shouldReturnTrueIfAdminAdmin() {
-        boolean result = loginHelper.login("admin", "admin");
+        boolean result = loginHelper.login(RIGHT_USER, RIGHT_PASSWORD);
 
         assertTrue(result);
     }
 
     @Test
     public void shouldReturnFalseForBadUser() {
-        boolean result = loginHelper.login("admi", "admin");
+        boolean result = loginHelper.login(WRONG_USER, RIGHT_PASSWORD);
 
         assertFalse(result);
     }
 
     @Test
     public void shouldReturnFalseForBadPassword() {
-        boolean result = loginHelper.login("admin", "admi");
+        boolean result = loginHelper.login(RIGHT_USER, WRONG_PSSWORD);
 
         assertFalse(result);
     }
 
     @Test
     public void shouldReturnFalseForNullUser() {
-        boolean result = loginHelper.login(null, "admin");
+        boolean result = loginHelper.login(null, RIGHT_PASSWORD);
 
         assertFalse(result);
     }
 
     @Test
     public void shouldReturnFalseForNullPassword() {
-        boolean result = loginHelper.login("admin", null);
+        boolean result = loginHelper.login(RIGHT_USER, null);
 
         assertFalse(result);
     }
@@ -73,7 +77,7 @@ public class LoginHelperTest {
 
     @Test
     public void testLogOutUneven() {
-        mockClock.setSeconds(3);
+        mockClock.setSeconds(2);
         boolean result = loginHelper.canLogout();
 
         assertFalse(result);

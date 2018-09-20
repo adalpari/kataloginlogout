@@ -9,6 +9,7 @@ public class LoginResult {
 
     public final static String NOT_ALLOWED_CHARACTER_MESSAGE = "Only text characters allowed";
     public final static String BAD_CREDENTIALS_MESSAGE = "Wrong credential";
+    public final static String CAN_NOT_LOG_OUT_MESSAGE = "You are trapped!";
 
     private boolean isError;
     private String error;

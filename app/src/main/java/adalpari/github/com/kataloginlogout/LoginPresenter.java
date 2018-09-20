@@ -29,7 +29,7 @@ public class LoginPresenter {
         if (success) {
             view.showLogInForm();
         } else {
-            view.showError("You are trapped!");
+            view.showError(LoginResult.CAN_NOT_LOG_OUT_MESSAGE);
         }
     }
 }

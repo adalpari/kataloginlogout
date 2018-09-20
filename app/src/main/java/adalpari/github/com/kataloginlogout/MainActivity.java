@@ -12,7 +12,6 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String ADMIN = "admin";
     @BindView(R.id.name)
     EditText nameTv;
 
@@ -31,11 +30,12 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.login)
     public void onViewClicked() {
-        if (ADMIN.equals(nameTv.getText())
-                && ADMIN.equals(passwordTv.getText())) {
-            Toast.makeText(this, "SUCCESS", Toast.LENGTH_LONG).show();
+        boolean success = LoginHelper.login(nameTv.getText().toString(), passwordTv.getText().toString());
+
+        if (success) {
+            Toast.makeText(this, "SUCCESS", Toast.LENGTH_LONG). show();
         } else {
-            Toast.makeText(this, "ERROR", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "FAIL", Toast.LENGTH_LONG). show();
         }
     }
 }

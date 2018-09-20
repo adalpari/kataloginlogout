@@ -85,7 +85,7 @@ public class LoginPresenterTest {
             return allowLogout;
         }
 
-        public void setAllowLogout(boolean allowLogout) {
+        void setAllowLogout(boolean allowLogout) {
             this.allowLogout = allowLogout;
         }
 
@@ -94,7 +94,7 @@ public class LoginPresenterTest {
             return loginResult;
         }
 
-        public void setLoginResult(LoginResult loginResult) {
+        void setLoginResult(LoginResult loginResult) {
             this.loginResult = loginResult;
         }
     }

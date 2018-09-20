@@ -18,8 +18,29 @@ public class LoginHelperTest {
     }
 
     @Test
-    public void shouldReturnFalseForNullLogin() {
-        boolean result = LoginHelper.login(null, null);
+    public void shouldReturnFalseForBadUser() {
+        boolean result = LoginHelper.login("admi", "admin");
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void shouldReturnFalseForBadPassword() {
+        boolean result = LoginHelper.login("admin", "admi");
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void shouldReturnFalseForNullUser() {
+        boolean result = LoginHelper.login(null, "admin");
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void shouldReturnFalseForNullPassword() {
+        boolean result = LoginHelper.login("admin", null);
 
         assertFalse(result);
     }
@@ -27,13 +48,6 @@ public class LoginHelperTest {
     @Test
     public void shouldReturnFalseForBlankLogin() {
         boolean result = LoginHelper.login("", "");
-
-        assertFalse(result);
-    }
-
-    @Test
-    public void shouldReturnFalseForBadLogin() {
-        boolean result = LoginHelper.login("admi", "admi");
 
         assertFalse(result);
     }

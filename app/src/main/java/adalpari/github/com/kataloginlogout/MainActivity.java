@@ -11,7 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoginView {
 
     @BindView(R.id.name)
     EditText name;
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.logout)
     Button logoutButton;
 
-    private LoginHelper loginHelper;
+    private LoginPresenter loginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,42 +33,42 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        loginHelper = new LoginHelper(new Clock());
+        injectDependencies();
+    }
+
+    private void injectDependencies() {
+        LoginHelper loginHelper = new LoginHelper(new Clock());
+        loginPresenter = new LoginPresenter(loginHelper, this);
     }
 
     @OnClick(R.id.login)
     public void onLoginClicked() {
-        boolean success = loginHelper.login(name.getText().toString(), password.getText().toString());
-
-        if (success) {
-            showLogOut();
-        } else {
-            Toast.makeText(this, "Meeeh", Toast.LENGTH_LONG).show();
-        }
+        loginPresenter.onLogInClicked(name.getText().toString(), password.getText().toString());
     }
 
     @OnClick(R.id.logout)
     public void onLogoutClicked() {
-        boolean success = loginHelper.canLogout();
-
-        if (success) {
-            showLogIn();
-        } else {
-            Toast.makeText(this, "You are trapped!", Toast.LENGTH_LONG).show();
-        }
+        loginPresenter.onLogOutClicked();
     }
 
-    private void showLogOut() {
-        name.setVisibility(View.INVISIBLE);
-        password.setVisibility(View.INVISIBLE);
-        loginButton.setVisibility(View.INVISIBLE);
-        logoutButton.setVisibility(View.VISIBLE);
+    @Override
+    public void showError(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
     }
 
-    private void showLogIn() {
+    @Override
+    public void showLogInForm() {
         name.setVisibility(View.VISIBLE);
         password.setVisibility(View.VISIBLE);
         loginButton.setVisibility(View.VISIBLE);
         logoutButton.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void showLogOutForm() {
+        name.setVisibility(View.INVISIBLE);
+        password.setVisibility(View.INVISIBLE);
+        loginButton.setVisibility(View.INVISIBLE);
+        logoutButton.setVisibility(View.VISIBLE);
     }
 }

@@ -13,8 +13,16 @@ public class LoginHelper {
         this.clock = clock;
     }
 
-    public boolean login(String userName, String password) {
-        return ADMIN.equals(userName) && ADMIN.equals(password);
+    public LoginResult login(String userName, String password) {
+        if (userName != null && userName.contains(";")) {
+            return new LoginResult(true, LoginResult.NOT_ALLOWED_CHARACTER_MESSAGE);
+        }
+
+        if (!ADMIN.equals(userName) || !ADMIN.equals(password)) {
+            return new LoginResult(true, LoginResult.BAD_CREDENTIALS_MESSAGE);
+        }
+
+        return new LoginResult(false, null);
     }
 
     public boolean canLogout() {

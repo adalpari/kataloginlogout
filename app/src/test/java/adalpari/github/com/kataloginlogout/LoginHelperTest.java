@@ -7,6 +7,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import adalpari.github.com.kataloginlogout.domain.login.Clock;
+import adalpari.github.com.kataloginlogout.domain.login.LoginHelper;
+import adalpari.github.com.kataloginlogout.domain.login.LoginResult;
+
 /**
  * Created by Adalberto Plaza on 20/09/2018.
  */

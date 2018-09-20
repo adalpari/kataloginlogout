@@ -1,4 +1,4 @@
-package adalpari.github.com.kataloginlogout;
+package adalpari.github.com.kataloginlogout.domain.login;
 
 /**
  * Created by Adalberto Plaza on 20/09/2018.

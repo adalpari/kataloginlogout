@@ -1,4 +1,7 @@
-package adalpari.github.com.kataloginlogout;
+package adalpari.github.com.kataloginlogout.ui.login.presenter;
+
+import adalpari.github.com.kataloginlogout.domain.login.LoginHelper;
+import adalpari.github.com.kataloginlogout.domain.login.LoginResult;
 
 /**
  * Created by Adalberto Plaza on 20/09/2018.

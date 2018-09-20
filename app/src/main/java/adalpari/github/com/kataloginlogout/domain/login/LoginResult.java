@@ -1,4 +1,4 @@
-package adalpari.github.com.kataloginlogout;
+package adalpari.github.com.kataloginlogout.domain.login;
 
 import android.support.annotation.Nullable;
 

@@ -1,4 +1,4 @@
-package adalpari.github.com.kataloginlogout;
+package adalpari.github.com.kataloginlogout.ui.login.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import adalpari.github.com.kataloginlogout.domain.login.Clock;
+import adalpari.github.com.kataloginlogout.domain.login.LoginHelper;
+import adalpari.github.com.kataloginlogout.ui.login.presenter.LoginPresenter;
+import adalpari.github.com.kataloginlogout.ui.login.presenter.LoginView;
+import adalpari.github.com.kataloginlogout.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

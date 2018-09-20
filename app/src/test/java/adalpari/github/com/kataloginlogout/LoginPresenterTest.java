@@ -9,6 +9,12 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import adalpari.github.com.kataloginlogout.domain.login.Clock;
+import adalpari.github.com.kataloginlogout.domain.login.LoginHelper;
+import adalpari.github.com.kataloginlogout.domain.login.LoginResult;
+import adalpari.github.com.kataloginlogout.ui.login.presenter.LoginPresenter;
+import adalpari.github.com.kataloginlogout.ui.login.presenter.LoginView;
+
 /**
  * Created by Adalberto Plaza on 20/09/2018.
  */

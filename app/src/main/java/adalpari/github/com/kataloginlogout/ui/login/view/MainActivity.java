@@ -63,10 +63,12 @@ public class MainActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void showLogInForm() {
-        name.setVisibility(View.VISIBLE);
-        password.setVisibility(View.VISIBLE);
-        loginButton.setVisibility(View.VISIBLE);
-        logoutButton.setVisibility(View.INVISIBLE);
+        runOnUiThread(() -> {
+            name.setVisibility(View.VISIBLE);
+            password.setVisibility(View.VISIBLE);
+            loginButton.setVisibility(View.VISIBLE);
+            logoutButton.setVisibility(View.INVISIBLE);
+        });
     }
 
     @Override

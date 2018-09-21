@@ -12,6 +12,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import adalpari.github.com.kataloginlogout.domain.login.Clock;
 import adalpari.github.com.kataloginlogout.domain.login.LoginHelper;
 import adalpari.github.com.kataloginlogout.domain.login.LoginResult;
+import adalpari.github.com.kataloginlogout.executor.BackgroundExecutor;
 import adalpari.github.com.kataloginlogout.ui.login.presenter.LoginPresenter;
 import adalpari.github.com.kataloginlogout.ui.login.presenter.LoginView;
 
@@ -21,6 +22,8 @@ import adalpari.github.com.kataloginlogout.ui.login.presenter.LoginView;
 @RunWith(MockitoJUnitRunner.class)
 public class LoginPresenterTest {
 
+    private static final String BLANK = "";
+
     @Mock
     LoginView loginView;
 
@@ -29,8 +32,9 @@ public class LoginPresenterTest {
 
     @Before
     public void setUp() throws Exception {
+        final BackgroundExecutorMock backgroundExecutorMock = new BackgroundExecutorMock();
         loginHelperMock = new LoginHelperMock();
-        loginPresenter = new LoginPresenter(loginHelperMock, loginView);
+        loginPresenter = new LoginPresenter(loginHelperMock, backgroundExecutorMock, loginView);
     }
 
     @Test
@@ -55,7 +59,7 @@ public class LoginPresenterTest {
     public void shouldShowErrorForBadUser() {
         givenLoginResult(new LoginResult(true, LoginResult.BAD_CREDENTIALS_MESSAGE));
 
-        loginPresenter.onLogInClicked("", "");
+        loginPresenter.onLogInClicked(BLANK, BLANK);
 
         verify(loginView, times(1)).showError(LoginResult.BAD_CREDENTIALS_MESSAGE);
     }
@@ -64,16 +68,16 @@ public class LoginPresenterTest {
     public void shouldShowELogOutForm() {
         givenLoginResult(new LoginResult(false, null));
 
-        loginPresenter.onLogInClicked("", "");
+        loginPresenter.onLogInClicked(BLANK, BLANK);
 
         verify(loginView, times(1)).showLogOutForm();
     }
 
-    void givenAllowLogout(boolean allow) {
+    private void givenAllowLogout(boolean allow) {
         loginHelperMock.setAllowLogout(allow);
     }
 
-    void givenLoginResult(LoginResult loginResult) {
+    private void givenLoginResult(LoginResult loginResult) {
         loginHelperMock.setLoginResult(loginResult);
     }
 
@@ -102,6 +106,13 @@ public class LoginPresenterTest {
 
         void setLoginResult(LoginResult loginResult) {
             this.loginResult = loginResult;
+        }
+    }
+
+    class BackgroundExecutorMock extends BackgroundExecutor {
+        @Override
+        public void run(Runnable runnable) {
+            runnable.run();
         }
     }
 

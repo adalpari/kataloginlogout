@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import adalpari.github.com.kataloginlogout.domain.login.Clock;
 import adalpari.github.com.kataloginlogout.domain.login.LoginHelper;
+import adalpari.github.com.kataloginlogout.executor.BackgroundExecutor;
 import adalpari.github.com.kataloginlogout.ui.login.presenter.LoginPresenter;
 import adalpari.github.com.kataloginlogout.ui.login.presenter.LoginView;
 import adalpari.github.com.kataloginlogout.R;
@@ -42,8 +43,9 @@ public class MainActivity extends AppCompatActivity implements LoginView {
     }
 
     private void injectDependencies() {
-        LoginHelper loginHelper = new LoginHelper(new Clock());
-        loginPresenter = new LoginPresenter(loginHelper, this);
+        final LoginHelper loginHelper = new LoginHelper(new Clock());
+        final BackgroundExecutor backgroundExecutor = new BackgroundExecutor();
+        loginPresenter = new LoginPresenter(loginHelper, backgroundExecutor, this);
     }
 
     @OnClick(R.id.login)
@@ -58,7 +60,9 @@ public class MainActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void showError(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+        runOnUiThread(() -> {
+            Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+        });
     }
 
     @Override
@@ -73,9 +77,11 @@ public class MainActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void showLogOutForm() {
-        name.setVisibility(View.INVISIBLE);
-        password.setVisibility(View.INVISIBLE);
-        loginButton.setVisibility(View.INVISIBLE);
-        logoutButton.setVisibility(View.VISIBLE);
+        runOnUiThread(() -> {
+            name.setVisibility(View.INVISIBLE);
+            password.setVisibility(View.INVISIBLE);
+            loginButton.setVisibility(View.INVISIBLE);
+            logoutButton.setVisibility(View.VISIBLE);
+        });
     }
 }

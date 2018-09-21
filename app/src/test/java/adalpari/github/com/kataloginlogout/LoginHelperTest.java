@@ -21,6 +21,7 @@ public class LoginHelperTest {
     private static final String WRONG_USER = "admi";
     private static final String WRONG_PSSWORD = "admi";
     public static final String USER_NAME_NOT_ALLOWED_CHARACTER = "ADMIN;";
+    public static final String BLANK = "";
     private LoginHelper mLoginHelper;
     private MockClock mockClock;
 
@@ -67,7 +68,7 @@ public class LoginHelperTest {
 
     @Test
     public void shouldReturnFalseForBlankLogin() {
-        LoginResult result = mLoginHelper.login("", "");
+        LoginResult result = mLoginHelper.login(BLANK, BLANK);
 
         assertEquals(LoginResult.BAD_CREDENTIALS_MESSAGE, result.getError());
     }

@@ -5,8 +5,8 @@ package adalpari.github.com.kataloginlogout.executor;
  */
 public class BackgroundExecutor {
 
-    // This is a simple thread creator to simulate background working to practise with tests
     public void run(Runnable runnable) {
+        // This is a simple thread creator to simulate background working to practise with tests
         new Thread(runnable);
     }
 }

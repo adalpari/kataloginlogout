@@ -8,6 +8,5 @@ public interface LoginView {
     void showError(String error);
 
     void showLogInForm();
-
     void showLogOutForm();
 }

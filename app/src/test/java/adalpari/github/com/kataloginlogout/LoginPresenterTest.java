@@ -31,7 +31,7 @@ public class LoginPresenterTest {
     private LoginPresenter loginPresenter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         final BackgroundExecutorMock backgroundExecutorMock = new BackgroundExecutorMock();
         loginHelperMock = new LoginHelperMock();
         loginPresenter = new LoginPresenter(loginHelperMock, backgroundExecutorMock, loginView);

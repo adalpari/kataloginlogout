@@ -50,7 +50,9 @@ public class MainActivity extends AppCompatActivity implements LoginView {
 
     @OnClick(R.id.login)
     public void onLoginClicked() {
-        loginPresenter.onLogInClicked(name.getText().toString(), password.getText().toString());
+        final String userName = name.getText().toString();
+        final String pass = password.getText().toString();
+        loginPresenter.onLogInClicked(userName, pass);
     }
 
     @OnClick(R.id.logout)
